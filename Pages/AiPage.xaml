@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ThinkFast.Pages"
+             x:Class="ThinkFast.Pages.AiPage"
+             Title="AI Chat">
+
+    <!-- Define Resources for Reusable Styles -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Frame Style -->
+            <Style x:Key="FrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#F4F4F4" />
+                <Setter Property="CornerRadius" Value="30" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <!-- Label Style -->
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <!-- Section Header Style -->
+            <Style x:Key="SectionHeaderStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,10,0,10" />
+            </Style>
+
+            <!-- Image Style -->
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="WidthRequest" Value="28" />
+                <Setter Property="HeightRequest" Value="28" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0,10,0,10" />
+            </Style>
+
+            <!-- Button Style -->
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Blue" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <!-- MessageColorConverter for Chat Messages -->
+            <local:MessageColorConverter x:Key="MessageColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Main Layout -->
+    <Grid>
+        <!-- ScrollView for Existing Content -->
+        <ScrollView x:Name="ContentScrollView">
+            <VerticalStackLayout Padding="20" Spacing="10">
+
+                <!-- Explain Section -->
+                <Image Source="m.png" Style="{StaticResource ImageStyle}" />
+                <Label Text="Explain" Style="{StaticResource SectionHeaderStyle}" />
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="Explain Quantum physics" Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="What are wormholes? Explain like I am 5" Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <BoxView HeightRequest="30" Color="White" />
+
+                <!-- Write & Edit Section -->
+                <Image Source="edit.png" Style="{StaticResource ImageStyle}" />
+                <Label Text="Write &amp; Edit" Style="{StaticResource SectionHeaderStyle}" />
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="Write a tweet about global warming" Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="Write a poem about flowers and love" Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="Write rap song lyrics about..." Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <BoxView HeightRequest="30" Color="White" />
+
+                <!-- Translate Section -->
+                <Image Source="translate.png" Style="{StaticResource ImageStyle}" />
+                <Label Text="Translate" Style="{StaticResource SectionHeaderStyle}" />
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="How do you say “how are you” in Korean?" Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="Translate this sentence into French..." Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+                <Frame Style="{StaticResource FrameStyle}">
+                    <Label Text="Write a rap song lyrics about..." Style="{StaticResource LabelStyle}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLabelTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Chat Interface -->
+        <VerticalStackLayout x:Name="ChatLayout" Padding="20" Spacing="10" VerticalOptions="StartAndExpand" IsVisible="False">
+
+            <!-- Chat History -->
+            <CollectionView x:Name="ChatHistoryView" 
+                            ItemsSource="{Binding ChatHistory}"
+                            HeightRequest="600"
+                            VerticalOptions="End">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!-- User Message (Right Side) -->
+                        <Frame Padding="10" 
+                               Margin="5" 
+                               BackgroundColor="{Binding IsUserMessage, Converter={StaticResource MessageColorConverter}}"
+                               HorizontalOptions="{Binding IsUserMessage, Converter={local:MessageAlignmentConverter}}"
+                               CornerRadius="10"
+                               HasShadow="True">
+                            <Label Text="{Binding Text}" 
+                                   TextColor="{Binding IsUserMessage, Converter={local:MessageTextColorConverter}}"
+                                   HorizontalOptions="End" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <!-- Input & Send Button (Always Visible) -->
+        <HorizontalStackLayout Spacing="20" VerticalOptions="End" Padding="20">
+            <!-- Input Area -->
+            <Frame BackgroundColor="White"
+                   CornerRadius="30"
+                   Padding="10"
+                   HasShadow="True"
+                   HorizontalOptions="FillAndExpand">
+                <Entry x:Name="UserInput" Placeholder="Enter your message..."
+                       WidthRequest="270"/>
+            </Frame>
+
+            <!-- Send Button -->
+            <Button WidthRequest="50"
+                    HeightRequest="50"
+                    CornerRadius="30"
+                    Padding="5"
+                    BackgroundColor="Black"
+                    Clicked="OnSendButtonClicked">
+                <Button.ImageSource>
+                    <FileImageSource File="arrow.png" />
+                </Button.ImageSource>
+            </Button>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage> 

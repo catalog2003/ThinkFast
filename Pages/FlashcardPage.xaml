@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.FlashcardPage"
+             Title="Flashcard Sets">
+
+    <ScrollView>
+        <VerticalStackLayout Margin="20" Spacing="20">
+            <Label Text="Available Flashcard Sets"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+
+            <Label x:Name="NoSetsLabel"
+                   Text="No flashcard sets available. Generate some flashcards first!"
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0"
+                   IsVisible="False" />
+
+            <CollectionView x:Name="FlashcardsCollectionView"
+                           ItemsSource="{Binding FlashcardSets}"
+                           IsVisible="False">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray"
+                               CornerRadius="10"
+                               HasShadow="True"
+                               Margin="0"
+                               Padding="15"
+                               HorizontalOptions="Fill">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       Margin="0,0,0,10" />
+
+                                <Label Text="{Binding Flashcards.Count, StringFormat='{0} flashcards'}"
+                                       FontSize="16"
+                                       HorizontalOptions="Center" />
+
+                                <Button Text="View Flashcards"
+                                        HorizontalOptions="Center"
+                                        Margin="0,10,0,0"
+                                        Clicked="OnViewFlashcardsClicked" />
+
+                                <Button Text="Delete Set"
+                                        HorizontalOptions="Center"
+                                        Margin="0,10,0,0"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                        Clicked="OnDeleteSetClicked" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

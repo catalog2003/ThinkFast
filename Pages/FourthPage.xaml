@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.FourthPage"
+             Title="FourthPage">
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+      
+            <Label x:Name="SelectedItemLabel"
+             Text="Select Gender"
+             FontSize="16"
+             HorizontalOptions="Start"/>
+
+        <Picker x:Name="picker"
+        Title="Select a Gender">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+       
+
+       
+            <Label x:Name="SelectedItemLabel2"
+       Text="Select Grade"
+       FontSize="16"
+       HorizontalOptions="Start"/>
+
+            <Picker x:Name="picker2"
+  Title="Select a Grade">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                    <x:String>Grade 1</x:String>
+                    <x:String>Grade 2</x:String>
+                    <x:String>Grade 3</x:String>
+                    <x:String>Grade 4</x:String>
+                    <x:String>Grade 5</x:String>
+                    <x:String>Grade 6</x:String>
+                    <x:String>Grade 7</x:String>
+                    <x:String>Grade 8</x:String>
+                    <x:String>Grade 9</x:String>
+                    <x:String>Grade 10</x:String>
+                    <x:String>Grade 11</x:String>
+                    <x:String>Grade 12</x:String>
+                </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        
+        <Button Text="Done"
+                
+ FontSize="20"
+ TextColor="White"
+ BackgroundColor="#007CFF"
+ Padding="10,5"
+ WidthRequest="350"
+ HeightRequest="60"
+ CornerRadius="16"
+         VerticalOptions="End"
+         Margin="0,470,0,0"
+
+Clicked="OnGetStartedClicked"
+     
+ />
+
+    </VerticalStackLayout>
+
+</ContentPage>

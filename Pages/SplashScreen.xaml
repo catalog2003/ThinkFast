@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.SplashScreen"
+             Title="SplashScreen"
+             BackgroundColor="White">
+  
+
+
+
+    <Grid>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10" Margin="0,0,0,250">
+
+            <Image Source="logo.png"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+            
+               
+               WidthRequest="200"
+               HeightRequest="200"
+               
+               />
+        <Label Text ="Think Fast"
+               FontSize="40"
+               TextColor="Black"
+               HorizontalOptions="Center"
+               FontFamily="RubikBold"
+      
+               />
+        </StackLayout>
+    </Grid>
+</ContentPage>

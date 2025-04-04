@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.ThirdPage"
+             Title="ThirdPage">
+    <Grid>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+            <Image Source="thirdpage.png"
+                  Margin="0,-120,0,0"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"
+                   Aspect="AspectFill"
+                 
+                
+                  />
+
+            <Label Text="Improve your skills"
+                  FontSize="24" 
+                   FontFamily="Rubik"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   />
+            <Label Text="Let’s make learning smarter and more efficient. "
+                   FontSize="16"
+                   
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   />
+
+
+
+        </StackLayout>
+        <Button Text="Let’s Start"
+        FontSize="20"
+        TextColor="White"
+        BackgroundColor="#007CFF"
+        Padding="10,5"
+        WidthRequest="350"
+        HeightRequest="60"
+        CornerRadius="16"
+                VerticalOptions="End"
+                Margin="0,0,0,20"
+       
+       Clicked="OnGetStartedClicked"
+     
+        />
+
+    </Grid>
+</ContentPage>

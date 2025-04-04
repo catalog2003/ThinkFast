@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.FirstPage"
+             Title="FirstPage">
+    
+
+    <Grid>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+            <Image Source="firstpage.png"
+                   
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"
+                   Aspect="AspectFill"
+                   Margin="0,-120,0,0"
+                   
+                   
+                   />
+            <Label Text="Learn anytime 
+and anywhere"
+                   FontSize="24"
+                   FontFamily="Rubik"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   />
+            <Label Text="AI-generated flashcards and Test—all in one place!"
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   TextColor="Black"/>
+
+
+
+        </StackLayout>
+        <Button Text="Next"
+        FontSize="20"
+        BackgroundColor="#007CFF"
+        Padding="10,5"
+        WidthRequest="350"
+        HeightRequest="60"
+        CornerRadius="16"
+                VerticalOptions="End"
+                Margin="0,0,0,20"
+                
+        Clicked="OnGetStartedClicked"        
+        />
+
+    </Grid>
+</ContentPage>

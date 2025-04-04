@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.SecondPage"
+             Title="SecondPage">
+    <Grid>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+            <Image Source="secondpage.png"
+                  Margin="0,-120,0,0"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Center"
+                   Aspect="AspectFill"
+                 
+                
+                  />
+
+            <Label Text="Flashcards That Think for You "
+                  FontSize="24" 
+                   FontFamily="Rubik"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   />
+            <Label Text="Instantly convert notes, pdfs, images, or audio into smart flashcards and test."
+       FontSize="16"
+       TextColor="Black"
+                   WidthRequest="400"
+       HorizontalOptions="Center"
+       HorizontalTextAlignment="Center"
+       VerticalTextAlignment="Center"/>
+
+
+
+
+        </StackLayout>
+        <Button Text="Next"
+        FontSize="20"
+        TextColor="White"
+        BackgroundColor="#007CFF"
+        Padding="10,5"
+        WidthRequest="350"
+        HeightRequest="60"
+        CornerRadius="16"
+                VerticalOptions="End"
+                Margin="0,0,0,20"
+       
+       Clicked="OnGetStartedClicked"
+     
+        />
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Pages.TestCardPage"
+             xmlns:local="clr-namespace:ThinkFast.Pages"
+             Title="Test Sets">
+
+    <ScrollView>
+        <VerticalStackLayout Margin="20" Spacing="20">
+            <Label Text="Available Test Sets"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10" />
+
+            <Label x:Name="NoSetsLabel"
+                   Text="No test sets available. Generate some tests first!"
+                   FontSize="16"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0"
+                   IsVisible="False" />
+
+            <CollectionView x:Name="TestSetsCollectionView"
+                           ItemsSource="{Binding TestSets}"
+                           IsVisible="False">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray"
+                               CornerRadius="10"
+                               HasShadow="True"
+                               Margin="0"
+                               Padding="15"
+                               HorizontalOptions="Fill">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       Margin="0,0,0,10" />
+
+                                <Label Text="{Binding Test.Count, StringFormat='{0} questions'}"
+                                       FontSize="16"
+                                       HorizontalOptions="Center" />
+
+                                <Button Text="Start Test"
+                                        HorizontalOptions="Center"
+                                        Margin="0,10,0,0"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:TestCardPage}}, Path=StartTestCommand}"
+                                        CommandParameter="{Binding}" />
+
+                                <Button Text="Delete Set"
+                                        HorizontalOptions="Center"
+                                        Margin="0,10,0,0"
+                                        BackgroundColor="Red"
+                                        TextColor="White"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:TestCardPage}}, Path=DeleteSetCommand}"
+                                        CommandParameter="{Binding Title}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
