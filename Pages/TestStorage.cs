@@ -17,6 +17,7 @@ namespace ThinkFast.Pages
     {
         public List<TestQuestion> Test { get; set; } = new List<TestQuestion>();
         public string Title { get; set; }
+        public string ImageSource { get; set; }
     }
 
     public static class TestStorage

@@ -9,6 +9,7 @@ namespace ThinkFast
         {
             InitializeComponent();
             FlashcardStorage.Initialize();
+            TestStorage.Initialize();
             // Set SplashScreen as the main page
             MainPage = new NavigationPage(new Pages.SplashScreen());
         }

@@ -1,5 +1,6 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Shapes;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -31,39 +32,133 @@ namespace ThinkFast.Pages
 
             DisplayCurrentQuestion();
         }
-
         private void DisplayCurrentQuestion()
         {
             if (_testData.Test.Count == 0) return;
 
-            // Clear previous options
             OptionsLayout.Children.Clear();
             _questionAnswered = false;
             NextButton.IsEnabled = false;
-
-            // Update current question info
+            NextButton.TextColor = Color.FromArgb("#FFFFFF");
+            NextButton.BackgroundColor = Color.FromArgb("#007CFF");
             var currentQuestion = _testData.Test[_currentIndex];
             CurrentQuestionText = currentQuestion.Question;
             CounterText = $"Question {_currentIndex + 1} of {_testData.Test.Count}";
             OnPropertyChanged(nameof(CurrentQuestionText));
             OnPropertyChanged(nameof(CounterText));
 
-            // Shuffle and add options
             var options = ShuffleOptions(new List<string>(currentQuestion.Options));
+            char optionLetter = 'A';
             foreach (var option in options)
             {
-                var optionButton = new Button
+                // Create the option container
+                var border = new Border
                 {
-                    Text = option,
-                    HorizontalOptions = LayoutOptions.Fill,
-                    Margin = new Thickness(0, 5)
+                    Stroke = Colors.LightGray,
+                    StrokeThickness = 1,
+                    StrokeShape = new RoundRectangle { CornerRadius = 8 },
+                    BackgroundColor = Colors.White,
+                    Padding = 0,
+                    Margin = new Thickness(0, 5),
+                    Content = new HorizontalStackLayout
+                    {
+                        Padding = new Thickness(15, 12),
+                        Children =
+                {
+                    new Label // Letter (A., B., C.)
+                    {
+                        Text = $"{optionLetter}.",
+                        FontSize = 16,
+                        TextColor = Colors.Black,
+                        VerticalOptions = LayoutOptions.Center,
+                        WidthRequest = 30,
+                        FontAttributes = FontAttributes.Bold
+                    },
+                    new Label // Option text
+                    {
+                        Text = option,
+                        FontSize = 16,
+                        TextColor = Colors.Black,
+                        VerticalOptions = LayoutOptions.Center,
+                        HorizontalOptions = LayoutOptions.Start
+                    }
+                }
+                    }
                 };
 
-                optionButton.Clicked += (sender, e) => CheckAnswer(sender as Button, option, currentQuestion.Correct_Answer);
-                OptionsLayout.Children.Add(optionButton);
+                // Add tap gesture
+                var tapGesture = new TapGestureRecognizer();
+                tapGesture.Tapped += (s, e) => CheckAnswer(border, option, currentQuestion.Correct_Answer);
+                border.GestureRecognizers.Add(tapGesture);
+
+                OptionsLayout.Children.Add(border);
+                optionLetter++;
             }
         }
 
+        private void CheckAnswer(Border border, string selectedAnswer, string correctAnswer)
+        {
+            if (_questionAnswered) return;
+
+            _questionAnswered = true;
+            NextButton.IsEnabled = true;
+            NextButton.BackgroundColor = Color.FromArgb("#007CFF");
+            bool isCorrect = string.Equals(selectedAnswer, correctAnswer, StringComparison.OrdinalIgnoreCase);
+
+            // Color definitions
+            var lightGreen = Color.FromArgb("#E8F5E9");
+            var lightRed = Color.FromArgb("#FFEBEE");
+            var borderGreen = Color.FromArgb("#81C784");
+            var borderRed = Color.FromArgb("#EF9A9A");
+
+            // Update selected answer
+            if (isCorrect)
+            {
+                border.BackgroundColor = lightGreen;
+                border.Stroke = borderGreen;
+                border.StrokeThickness = 2;
+            }
+            else
+            {
+                border.BackgroundColor = lightRed;
+                border.Stroke = borderRed;
+                border.StrokeThickness = 2;
+            }
+
+            // Highlight correct answer if wrong was selected
+            if (!isCorrect)
+            {
+                foreach (var child in OptionsLayout.Children)
+                {
+                    if (child is Border correctBorder &&
+                        correctBorder.Content is HorizontalStackLayout stack &&
+                        stack.Children[1] is Label label &&
+                        label.Text == correctAnswer)
+                    {
+                        correctBorder.BackgroundColor = lightGreen;
+                        correctBorder.Stroke = borderGreen;
+                        correctBorder.StrokeThickness = 2;
+                        break;
+                    }
+                }
+            }
+
+            // Disable all options
+            foreach (var child in OptionsLayout.Children)
+            {
+                if (child is Border optionBorder)
+                {
+                    optionBorder.GestureRecognizers.Clear();
+                }
+            }
+
+            // Update score
+            if (isCorrect)
+            {
+                _score++;
+                ScoreLabel.Text = $"Score: {_score}";
+            }
+        }
         private List<string> ShuffleOptions(List<string> options)
         {
             int n = options.Count;
@@ -78,52 +173,13 @@ namespace ThinkFast.Pages
             return options;
         }
 
-        private void CheckAnswer(Button button, string selectedAnswer, string correctAnswer)
-        {
-            if (_questionAnswered) return;
-
-            _questionAnswered = true;
-            NextButton.IsEnabled = true;
-
-            bool isCorrect = string.Equals(selectedAnswer, correctAnswer, StringComparison.OrdinalIgnoreCase);
-
-            if (isCorrect)
-            {
-                button.BackgroundColor = Colors.Green;
-                button.TextColor = Colors.White;
-                _score++;
-                ScoreLabel.Text = $"Score: {_score}";
-            }
-            else
-            {
-                button.BackgroundColor = Colors.Red;
-                button.TextColor = Colors.White;
-
-                foreach (var child in OptionsLayout.Children)
-                {
-                    if (child is Button optionButton &&
-                        string.Equals(optionButton.Text, correctAnswer, StringComparison.OrdinalIgnoreCase))
-                    {
-                        optionButton.BackgroundColor = Colors.Green;
-                        optionButton.TextColor = Colors.White;
-                        break;
-                    }
-                }
-            }
-
-            foreach (var child in OptionsLayout.Children)
-            {
-                if (child is Button optionButton)
-                {
-                    optionButton.IsEnabled = false;
-                }
-            }
-        }
+      
 
         private void NavigateToNextQuestion()
         {
             _currentIndex++;
-
+            NextButton.IsEnabled = false;
+            NextButton.BackgroundColor = Color.FromArgb("#007CFF");
             if (_currentIndex >= _testData.Test.Count)
             {
                 ShowTestResults();

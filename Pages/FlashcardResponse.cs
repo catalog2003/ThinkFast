@@ -6,6 +6,7 @@ namespace ThinkFast.Pages
     {
         public List<Flashcard> Flashcards { get; set; } = new List<Flashcard>();
         public string Title { get; set; } = string.Empty;
+        public string ImageSource { get; set; }
     }
 
     public class Flashcard

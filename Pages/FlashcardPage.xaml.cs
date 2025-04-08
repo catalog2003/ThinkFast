@@ -5,6 +5,14 @@ namespace ThinkFast.Pages
 {
     public partial class FlashcardPage : ContentPage
     {
+
+        private static readonly string[] CardImages = {
+        "i1.png",
+        "i2.png",
+        "i3.png",
+        "i4.png",
+        "i5.png"
+    };
         public List<FlashcardResponse> FlashcardSets { get; set; }
 
         public FlashcardPage()
@@ -17,7 +25,10 @@ namespace ThinkFast.Pages
         private void LoadFlashcardSets()
         {
             FlashcardSets = FlashcardStorage.FlashcardSets;
-
+            for (int i = 0; i < FlashcardSets.Count; i++)
+            {
+                FlashcardSets[i].ImageSource = CardImages[i % CardImages.Length];
+            }
             if (FlashcardSets.Count == 0)
             {
                 NoSetsLabel.IsVisible = true;
