@@ -21,7 +21,7 @@
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
                    />
-            <Label Text="Instantly convert notes, pdfs, images, or audio into smart flashcards and test."
+            <Label Text="Instantly convert notes, pdfs and images into smart flashcards and test."
        FontSize="16"
        TextColor="Black"
                    WidthRequest="400"

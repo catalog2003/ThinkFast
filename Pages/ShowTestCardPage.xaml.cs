@@ -59,32 +59,47 @@ namespace ThinkFast.Pages
                     StrokeShape = new RoundRectangle { CornerRadius = 8 },
                     BackgroundColor = Colors.White,
                     Padding = 0,
-                    Margin = new Thickness(0, 5),
-                    Content = new HorizontalStackLayout
-                    {
-                        Padding = new Thickness(15, 12),
-                        Children =
-                {
-                    new Label // Letter (A., B., C.)
-                    {
-                        Text = $"{optionLetter}.",
-                        FontSize = 16,
-                        TextColor = Colors.Black,
-                        VerticalOptions = LayoutOptions.Center,
-                        WidthRequest = 30,
-                        FontAttributes = FontAttributes.Bold
-                    },
-                    new Label // Option text
-                    {
-                        Text = option,
-                        FontSize = 16,
-                        TextColor = Colors.Black,
-                        VerticalOptions = LayoutOptions.Center,
-                        HorizontalOptions = LayoutOptions.Start
-                    }
-                }
-                    }
+                    Margin = new Thickness(0, 5)
                 };
+
+                // Create the inner layout
+                var grid = new Grid
+                {
+                    ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = GridLength.Auto },
+                new ColumnDefinition { Width = GridLength.Star }
+            },
+                    Padding = new Thickness(15, 12)
+                };
+
+                // Add letter label with right margin
+                var letterLabel = new Label
+                {
+                    Text = $"{optionLetter}.",
+                    FontSize = 16,
+                    TextColor = Colors.Black,
+                    VerticalOptions = LayoutOptions.Start,
+                    FontAttributes = FontAttributes.Bold,
+                    Margin = new Thickness(0, 0, 15, 0) // Added right margin here
+                };
+                Grid.SetColumn(letterLabel, 0);
+                grid.Children.Add(letterLabel);
+
+                // Add option text label
+                var optionLabel = new Label
+                {
+                    Text = option,
+                    FontSize = 16,
+                    TextColor = Colors.Black,
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Start,
+                    LineBreakMode = LineBreakMode.WordWrap
+                };
+                Grid.SetColumn(optionLabel, 1);
+                grid.Children.Add(optionLabel);
+
+                border.Content = grid;
 
                 // Add tap gesture
                 var tapGesture = new TapGestureRecognizer();

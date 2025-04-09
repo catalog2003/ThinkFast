@@ -23,7 +23,7 @@
                HasShadow="True"
                Margin="20,10"
                Padding="15"
-               HeightRequest="500"
+               HeightRequest="450"
                VerticalOptions="Center">
             <Label x:Name="ContentLabel"
                    Text="{Binding CurrentText}"
@@ -37,7 +37,7 @@
         <Button x:Name="FlipButton"
                 Text="Show Answer"
                 HorizontalOptions="Center"
-                Margin="0,50,0,20"
+                Margin="0,40,0,20"
                 WidthRequest="350"
                 FontSize="20"
                       BackgroundColor="#007CFF"

@@ -91,7 +91,7 @@
                 <Label Text="Write &amp; Edit" Style="{StaticResource SectionHeaderStyle}" />
 
                 <Frame Style="{StaticResource FrameStyle}">
-                    <Label Text="Write a tweet about global warming" Style="{StaticResource LabelStyle}">
+                    <Label Text="Write about global warming" Style="{StaticResource LabelStyle}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnLabelTapped" />
                         </Label.GestureRecognizers>
@@ -106,13 +106,7 @@
                     </Label>
                 </Frame>
 
-                <Frame Style="{StaticResource FrameStyle}">
-                    <Label Text="Write rap song lyrics about..." Style="{StaticResource LabelStyle}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnLabelTapped" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Frame>
+                
 
                 <BoxView HeightRequest="30" Color="White" />
 
@@ -136,13 +130,7 @@
                     </Label>
                 </Frame>
 
-                <Frame Style="{StaticResource FrameStyle}">
-                    <Label Text="Write a rap song lyrics about..." Style="{StaticResource LabelStyle}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnLabelTapped" />
-                        </Label.GestureRecognizers>
-                    </Label>
-                </Frame>
+              
 
             </VerticalStackLayout>
         </ScrollView>
