@@ -15,7 +15,7 @@ namespace ThinkFast.Pages
         public string CurrentText { get; private set; }
         public string CounterText { get; private set; }
         public string FlipButtonText { get; private set; } = "Show Answer";
-
+        public ICommand GoBackCommand { get; }
         public ICommand FlipCardCommand { get; }
         public ICommand PreviousCardCommand { get; }
         public ICommand NextCardCommand { get; }
@@ -30,7 +30,10 @@ namespace ThinkFast.Pages
             FlipCardCommand = new Command(FlipCard);
             PreviousCardCommand = new Command(() => NavigateCards(-1));
             NextCardCommand = new Command(() => NavigateCards(1));
+            
 
+        // In constructor:
+        GoBackCommand = new Command(async () => await Shell.Current.GoToAsync(".."));
             // Initialize first card
             UpdateCardDisplay();
 

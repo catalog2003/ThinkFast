@@ -5,15 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ThinkFast"
     xmlns:pages="clr-namespace:ThinkFast.Pages"
-   
+   Shell.NavBarIsVisible="false"
     Shell.FlyoutBehavior="Disabled"
   Shell.TabBarIsVisible="False"
     Title="ThinkFast"
     >
 
+   
 
-
-            <ShellContent
+    <ShellContent
                 Title="AiPage"
                 ContentTemplate="{DataTemplate pages:AiPage}"
                 Route="AiPage" />

@@ -20,14 +20,19 @@ namespace ThinkFast.Pages
         public string CounterText { get; private set; }
         public string CurrentQuestionText { get; private set; }
         public ICommand NextQuestionCommand { get; }
+        public ICommand GoBackCommand { get; }
 
-        public ShowTestCardPage(TestResponse testData)
+        // In constructor:
+       public ShowTestCardPage(TestResponse testData)
         {
             InitializeComponent();
             _testData = testData;
             Title = _testData.Title;
 
             NextQuestionCommand = new Command(NavigateToNextQuestion);
+     
+        // In constructor:
+        GoBackCommand = new Command(async () => await Shell.Current.GoToAsync(".."));
             BindingContext = this;
 
             DisplayCurrentQuestion();
