@@ -10,7 +10,7 @@ namespace ThinkFast.Pages
     {
         public string Question { get; set; }
         public string Correct_Answer { get; set; }
-        public List<string> Options { get; set; }
+        public List<string> Options { get; set; } = new List<string>();
     }
 
     public class TestResponse
@@ -23,40 +23,45 @@ namespace ThinkFast.Pages
     public static class TestStorage
     {
         private const string TestSetsKey = "TestSets";
+        private static readonly object _lock = new object();
 
         public static List<TestResponse> TestSets { get; private set; } = new List<TestResponse>();
 
         public static void Initialize()
         {
-            LoadTests();
+            lock (_lock)
+            {
+                LoadTests();
+            }
         }
 
         public static void AddTestSet(TestResponse testSet)
         {
-            // Check if a set with the same title already exists
-            var existingSet = TestSets.FirstOrDefault(ts => ts.Title == testSet.Title);
-
-            if (existingSet != null)
+            lock (_lock)
             {
-                // Update existing set
-                existingSet.Test = testSet.Test;
+                var existingSet = TestSets.FirstOrDefault(ts => ts.Title == testSet.Title);
+                if (existingSet != null)
+                {
+                    existingSet.Test = testSet.Test;
+                }
+                else
+                {
+                    TestSets.Add(testSet);
+                }
+                SaveTests();
             }
-            else
-            {
-                // Add new set
-                TestSets.Add(testSet);
-            }
-
-            SaveTests();
         }
 
         public static void RemoveTestSet(string title)
         {
-            var setToRemove = TestSets.FirstOrDefault(ts => ts.Title == title);
-            if (setToRemove != null)
+            lock (_lock)
             {
-                TestSets.Remove(setToRemove);
-                SaveTests();
+                var setToRemove = TestSets.FirstOrDefault(ts => ts.Title == title);
+                if (setToRemove != null)
+                {
+                    TestSets.Remove(setToRemove);
+                    SaveTests();
+                }
             }
         }
 
@@ -69,6 +74,10 @@ namespace ThinkFast.Pages
                 {
                     TestSets = JsonSerializer.Deserialize<List<TestResponse>>(serializedSets)
                               ?? new List<TestResponse>();
+                }
+                else
+                {
+                    TestSets = new List<TestResponse>();
                 }
             }
             catch (Exception ex)

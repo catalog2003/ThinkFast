@@ -7,38 +7,34 @@
     xmlns:pages="clr-namespace:ThinkFast.Pages"
    
     Shell.FlyoutBehavior="Disabled"
-     Shell.TabBarIsVisible="True"
+  Shell.TabBarIsVisible="False"
     Title="ThinkFast"
     >
 
 
 
-    <TabBar>
-        <!-- Home Tab -->
-        <Tab Title="AI" Icon="ai.jpg">
             <ShellContent
                 Title="AiPage"
                 ContentTemplate="{DataTemplate pages:AiPage}"
                 Route="AiPage" />
-        </Tab>
+      
 
-        <!-- Profile Tab -->
+      
        
-        <Tab Title="Flash Card" Icon="fc.png">
+       
             <ShellContent
                 Title="FlashcardPage"
                 ContentTemplate="{DataTemplate pages:FlashcardPage}"
                 Route="FlashcardPage" />
-        </Tab> 
+       
 
-        <!-- Settings Tab -->
-        <Tab Title="Test" Icon="t.png">
+        
+        
             <ShellContent
                 Title="TestPage"
                 ContentTemplate="{DataTemplate pages:TestCardPage}"
                 Route="TestCardPage" />
-        </Tab>
-    </TabBar>
+     
 
 
 </Shell>

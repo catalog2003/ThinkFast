@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ThinkFast.Pages"
              x:Class="ThinkFast.Pages.AiPage"
+                 xmlns:controls="clr-namespace:ThinkFast.Controls"
              Title="AI Chat">
 
     <!-- Define Resources for Reusable Styles -->
@@ -58,9 +59,9 @@
     </ContentPage.Resources>
 
     <!-- Main Layout -->
-    <Grid>
-        <!-- ScrollView for Existing Content -->
-        <ScrollView x:Name="ContentScrollView">
+    <Grid RowDefinitions="*,Auto,Auto">
+        <!-- ScrollView for Existing Content (Row 0) -->
+        <ScrollView x:Name="ContentScrollView" Grid.Row="0">
             <VerticalStackLayout Padding="20" Spacing="10">
 
                 <!-- Explain Section -->
@@ -146,9 +147,10 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Chat Interface -->
-        <VerticalStackLayout x:Name="ChatLayout" Padding="20" Spacing="10" VerticalOptions="StartAndExpand" IsVisible="False">
-
+        <VerticalStackLayout x:Name="ChatLayout" Grid.Row="0"
+                            Padding="20" Spacing="10" 
+                            VerticalOptions="StartAndExpand" 
+                            IsVisible="False">
             <!-- Chat History -->
             <CollectionView x:Name="ChatHistoryView" 
                             ItemsSource="{Binding ChatHistory}"
@@ -173,7 +175,10 @@
         </VerticalStackLayout>
 
         <!-- Input & Send Button (Always Visible) -->
-        <HorizontalStackLayout Spacing="20" VerticalOptions="End" Padding="20">
+        <HorizontalStackLayout Grid.Row="1" 
+                              Spacing="20" 
+                              VerticalOptions="End" 
+                              Padding="20,10">
             <!-- Input Area -->
             <Frame BackgroundColor="White"
                    CornerRadius="30"
@@ -196,5 +201,6 @@
                 </Button.ImageSource>
             </Button>
         </HorizontalStackLayout>
+        <controls:TabBarView Grid.Row="2"/>
     </Grid>
 </ContentPage> 

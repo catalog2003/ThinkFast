@@ -6,50 +6,56 @@ using Microsoft.Maui.Storage;
 
 namespace ThinkFast.Pages
 {
-    // Static class to store flashcard sets across the application
     public static class FlashcardStorage
     {
         private const string FlashcardSetsKey = "FlashcardSets";
+        private static readonly object _lock = new object();
 
         public static List<FlashcardResponse> FlashcardSets { get; private set; } = new List<FlashcardResponse>();
 
         public static void Initialize()
         {
-            LoadFlashcards();
+            lock (_lock)
+            {
+                LoadFlashcards();
+            }
         }
 
         public static void AddFlashcardSet(FlashcardResponse flashcardSet)
         {
-            if (flashcardSet == null)
-                throw new ArgumentNullException(nameof(flashcardSet));
-
-            // Check if a set with the same title already exists
-            var existingSet = FlashcardSets.FirstOrDefault(fs => fs.Title == flashcardSet.Title);
-
-            if (existingSet != null)
+            lock (_lock)
             {
-                // Update existing set
-                existingSet.Flashcards = flashcardSet.Flashcards;
-            }
-            else
-            {
-                // Add new set
-                FlashcardSets.Add(flashcardSet);
-            }
+                if (flashcardSet == null)
+                    throw new ArgumentNullException(nameof(flashcardSet));
 
-            SaveFlashcards();
+                var existingSet = FlashcardSets.FirstOrDefault(fs => fs.Title == flashcardSet.Title);
+
+                if (existingSet != null)
+                {
+                    existingSet.Flashcards = flashcardSet.Flashcards;
+                }
+                else
+                {
+                    FlashcardSets.Add(flashcardSet);
+                }
+
+                SaveFlashcards();
+            }
         }
 
         public static void RemoveFlashcardSet(string title)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                return;
-
-            var setToRemove = FlashcardSets.FirstOrDefault(fs => fs.Title == title);
-            if (setToRemove != null)
+            lock (_lock)
             {
-                FlashcardSets.Remove(setToRemove);
-                SaveFlashcards();
+                if (string.IsNullOrWhiteSpace(title))
+                    return;
+
+                var setToRemove = FlashcardSets.FirstOrDefault(fs => fs.Title == title);
+                if (setToRemove != null)
+                {
+                    FlashcardSets.Remove(setToRemove);
+                    SaveFlashcards();
+                }
             }
         }
 
@@ -60,8 +66,8 @@ namespace ThinkFast.Pages
                 var serializedSets = Preferences.Get(FlashcardSetsKey, string.Empty);
                 if (!string.IsNullOrEmpty(serializedSets))
                 {
-                    var sets = JsonSerializer.Deserialize<List<FlashcardResponse>>(serializedSets);
-                    FlashcardSets = sets ?? new List<FlashcardResponse>();
+                    FlashcardSets = JsonSerializer.Deserialize<List<FlashcardResponse>>(serializedSets)
+                                  ?? new List<FlashcardResponse>();
                 }
                 else
                 {

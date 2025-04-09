@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ThinkFast.Controls.TabBarView">
+
+    <Grid RowDefinitions="*,Auto">
+        <!-- Background with rounded top corners -->
+        <Border Grid.Row="1"
+                BackgroundColor="White"
+                HeightRequest="100"
+                Padding="15,0"
+                StrokeThickness="1"
+                Stroke="LightGray">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0"/>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow Brush="Black" Offset="0,5" Opacity="0.1" Radius="10"/>
+            </Border.Shadow>
+        </Border>
+
+        <!-- Tab items with updated sizes -->
+        <FlexLayout Direction="Row"
+                    Grid.Row="1"
+                    JustifyContent="SpaceAround"
+                    AlignItems="Center">
+
+            <!-- Home Tab -->
+            <VerticalStackLayout Spacing="6" Padding="10">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToHomeCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Image Source="ai.jpg" HeightRequest="40" WidthRequest="40" />
+                <Label Text="AI" HorizontalOptions="Center" FontSize="14" TextColor="Black" />
+            </VerticalStackLayout>
+
+            <!-- Calendar Tab -->
+            <VerticalStackLayout Spacing="6" Padding="10">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToCalendarCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Image Source="fc.png" HeightRequest="35" WidthRequest="25" />
+                <Label Text="Flash Card" HorizontalOptions="Center" FontSize="14" TextColor="Black" />
+            </VerticalStackLayout>
+
+            <!-- Filters Tab -->
+            <VerticalStackLayout Spacing="6" Padding="10">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToFiltersCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
+                <Image Source="t.png" HeightRequest="35" WidthRequest="35" />
+                <Label Text="Test" HorizontalOptions="Center" FontSize="14" TextColor="Black" />
+            </VerticalStackLayout>
+
+        </FlexLayout>
+    </Grid>
+</ContentView>
