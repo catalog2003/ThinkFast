@@ -5,32 +5,32 @@
              Title="{Binding Title}">
 
     <VerticalStackLayout Margin="20">
-        <!-- Header with back button and title -->
+        
         <Grid Margin="0,10,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="0"
-ImageSource="back_arrow.png"
-WidthRequest="50"
-HeightRequest="50"
-CornerRadius="25"
-Margin="15"
-BorderWidth="1"
-                    BorderColor="#BEBAB3"
-HorizontalOptions="Start"
-VerticalOptions="Start"
-BackgroundColor="white"
-Command="{Binding GoBackCommand}" />
+            <Button Grid.Column="0"
+             ImageSource="back_arrow.png"
+             WidthRequest="50"
+             HeightRequest="50"
+             CornerRadius="25"
+             Margin="5"
+             BorderWidth="1"
+             BorderColor="#BEBAB3"
+             HorizontalOptions="Start"
+             VerticalOptions="Start"
+             BackgroundColor="white"
+             Command="{Binding GoBackCommand}" />
 
             <Label Text="{Binding Title}"
-                   Grid.Column="1"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
+           Grid.Column="1"
+           FontSize="24"
+           FontAttributes="Bold"
+           HorizontalOptions="Center"
+           VerticalOptions="Center" />
         </Grid>
 
         <Label x:Name="CounterLabel"

@@ -55,6 +55,9 @@
 
             <!-- MessageColorConverter for Chat Messages -->
             <local:MessageColorConverter x:Key="MessageColorConverter" />
+           
+            <local:MessageAlignmentConverter x:Key="MessageAlignmentConverter" />
+            <local:MessageTextColorConverter x:Key="MessageTextColorConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -145,17 +148,18 @@
                             HeightRequest="600"
                             VerticalOptions="End">
                 <CollectionView.ItemTemplate>
+                    <!-- In your CollectionView.ItemTemplate -->
                     <DataTemplate>
-                        <!-- User Message (Right Side) -->
                         <Frame Padding="10" 
-                               Margin="5" 
-                               BackgroundColor="{Binding IsUserMessage, Converter={StaticResource MessageColorConverter}}"
-                               HorizontalOptions="{Binding IsUserMessage, Converter={local:MessageAlignmentConverter}}"
-                               CornerRadius="10"
-                               HasShadow="True">
-                            <Label Text="{Binding Text}" 
-                                   TextColor="{Binding IsUserMessage, Converter={local:MessageTextColorConverter}}"
-                                   HorizontalOptions="End" />
+           Margin="5" 
+           BackgroundColor="{Binding IsUserMessage, Converter={StaticResource MessageColorConverter}}"
+           HorizontalOptions="{Binding IsUserMessage, Converter={StaticResource MessageAlignmentConverter}}"
+           CornerRadius="10"
+           HasShadow="True">
+                            <Label FormattedText="{Binding FormattedText}"
+               TextColor="{Binding IsUserMessage, Converter={StaticResource MessageTextColorConverter}}"
+               HorizontalOptions="End"
+               LineBreakMode="WordWrap" />
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

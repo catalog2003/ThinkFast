@@ -159,11 +159,30 @@ namespace ThinkFast.Pages
     }
 
     // Model for chat messages
+
     public class ChatMessage
     {
         public string Text { get; set; }
-        public bool IsUserMessage { get; set; } // True for user messages, false for bot messages
+        public bool IsUserMessage { get; set; }
+
+        public FormattedString FormattedText
+        {
+            get
+            {
+                var formatted = MarkdownFormatter.Parse(Text);
+
+                // Set color for all spans based on message type
+                Color textColor = IsUserMessage ? Colors.White : Colors.Black;
+                foreach (var span in formatted.Spans)
+                {
+                    span.TextColor = textColor;
+                }
+
+                return formatted;
+            }
+        }
     }
+
 
     // MessageColorConverter implementation
     public class MessageColorConverter : IValueConverter
